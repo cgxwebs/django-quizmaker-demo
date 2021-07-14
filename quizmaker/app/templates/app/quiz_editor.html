@@ -1,0 +1,75 @@
+{% extends "./base.html"  %}
+
+{% block js_config %}
+    CONFIG['ROWS_MIN'] = {{ rows_min }};
+    CONFIG['ROWS_MAX'] = {{ rows_max }};
+    CONFIG['MODE'] = '{{ edit_mode }}';
+{% endblock %}
+
+{% block body %}
+    {% if is_edit is True %}
+        <h1>Edit your {{ quiz_type }} quizzy</h1>
+        <div class="notice_info">Please bookmark this URL to continue editing your quizzy.</div>
+    {% else %}
+        <h1>Create a {{ quiz_type }} quizzy</h1>
+    {% endif %}
+
+    <p>{{ quiz_description }}</p>
+
+    <div class="notice_error">{{ form.non_field_errors }}</div>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div{% if message.tags %} class="notice_{{ message.tags }}"{% endif %}>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="q-item">
+            <label>Quiz Title</label>
+            {{ form.title }}
+        </div>
+
+        <div class="q-item">
+            <label>Quiz Description (Optional)</label>
+            {{ form.description }}
+        </div>
+
+        <div id="frm-list">
+            {% for qform in questions_form %}
+                <div {% if forloop.first %}id="frm-row-origin"{% endif %} class="q-row q-2col">
+                    {% if edit_mode == 'mcq'  %}
+                        {% include "./create.multiple-choice-quiz.html" with qform=qform %}
+                    {% elif edit_mode == 'pic'  %}
+                        {% include "./create.picture-quiz.html" with qform=qform %}
+                    {% elif edit_mode == 'vid'  %}
+                        {% include "./create.video-quiz.html" with qform=qform %}
+                    {% endif %}
+
+                    <div class="q-opts" {% if forloop.first %}style="display: none"{% endif %}>
+                        <span class="q-remove-row q-opts-item"><i data-feather="trash-2"></i></span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div><a href="#" id="q-add-another">Add Another Row</a></div>
+
+        {% if edit_mode == 'mcq' %}
+            <div class="q-row">
+                <div class="q-item">
+                    <label>Dummy Answer</label>
+                    {{ form.dummy_answer }}
+                </div>
+            </div>
+        {% endif %}
+
+        {{ questions_form.management_form }}
+
+        <div class="text-center">
+            <button type="submit" name="submit" class="q-save">Save</button>
+        </div>
+    </form>
+{% endblock %}

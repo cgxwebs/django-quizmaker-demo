@@ -1,0 +1,14 @@
+{% extends "./base.html"  %}
+
+{% block body %}
+    <h1>Quiz Champions List</h1>
+    {% for item in score_list %}
+        <div class="text-center">
+            <h3>{{ forloop.counter }} &mdash; {{ item.name }}</h3>
+            <p>
+                Total Correct Answers: <strong>{{ item.total_correct_items }}</strong><br/>
+                Average Score: {{ item.avg_score|floatformat:0 }}%
+            </p>
+        </div>
+    {% endfor %}
+{% endblock %}

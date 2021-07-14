@@ -1,0 +1,26 @@
+<div class="q-item">
+    <label>Video ID</label>
+    {% if is_edit is True and not qform.video.errors %}
+        <a href="https://www.youtube.com/watch/{{ qform.video.value }}" target="_blank">Open Video</a>
+    {% endif %}
+    <div class="q-error">{{ qform.video.errors }}</div>
+    {{ qform.video }}
+</div>
+
+<div class="q-item">
+    <label>Question</label>
+    <div class="q-error">{{ qform.question.errors }}</div>
+    {{ qform.question }}
+</div>
+
+<div class="q-item">
+    <label>Dummy Choices</label>
+    <div class="q-error">{{ qform.choices.errors }}</div>
+    {{ qform.choices }}
+</div>
+
+<div class="q-item">
+    <label>Answer</label>
+    <div class="q-error">{{ qform.answer.errors }}</div>
+    {{ qform.answer }}
+</div>

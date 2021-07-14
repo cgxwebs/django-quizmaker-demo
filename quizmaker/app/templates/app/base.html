@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Quiz Maker Demo App</title>
+        <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'app/style.css' %}">
+        <script>
+            let CONFIG = {}
+            {% block js_config %}{% endblock %}
+        </script>
+
+    </head>
+    <body>
+
+        <header id="main_header">
+            <div id="branding">Quizzy</div>
+            <nav id="main_nav">
+                <a href="{% url 'app:play_index' %}"><i data-feather="play"></i> Play</a>
+                <a href="{% url 'app:scoreboard' %}"><i data-feather="grid"></i> Score Board</a>
+                <a href="{% url 'app:create_index' %}"><i data-feather="plus"></i> Create</a>
+            </nav>
+        </header>
+        <div id="main_wrapper">
+            <div id="content_wrapper">{% block body %}{% endblock %}</div>
+        </div>
+    </body>
+
+    <script>
+        feather.replace()
+    </script>
+    <script src="{% static 'app/main.js' %}"></script>
+</html>

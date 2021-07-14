@@ -1,0 +1,48 @@
+{% extends "./base.html"  %}
+
+{% block body %}
+
+    {% if results_view is True %}
+        <h1>{{ resp.name }} scored {{ resp.score|floatformat:0 }}% out of 100%</h1>
+        <h3>{{ title }}</h3>
+    {% else %}
+        <h1>{{ title }}</h1>
+        <p class="text-center">{% block quiz_description %}{% endblock %}</p>
+    {% endif %}
+
+    <p class="text-center">{{ description|linebreaksbr }}</p>
+
+    {% if results_view is not True %}
+        <div class="notice_error">{{ form.non_field_errors }}</div>
+
+        {% if messages %}
+            {% for message in messages %}
+            <div{% if message.tags %} class="notice_{{ message.tags }}"{% endif %}>{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {% block quiz_body %}{% endblock %}
+
+        {% if results_view is not True %}
+            <div class="q-item">
+                <label>Your Name</label>
+                <div class="q-error">{{ form.name.errors }}</div>
+                {{ form.name }}
+            </div>
+
+            <div class="q-item">
+                <label>Your Email</label>
+                <div class="q-error">{{ form.email.errors }}</div>
+                {{ form.email }}
+            </div>
+
+            {{ questions_form.management_form }}
+            <div class="text-center">
+                <button class="q-save" type="submit" name="submit">Mark My Answers</button>
+            </div>
+        {% endif %}
+    </form>
+{% endblock %}

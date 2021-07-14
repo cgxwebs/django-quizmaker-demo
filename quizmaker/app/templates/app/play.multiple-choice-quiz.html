@@ -1,0 +1,31 @@
+{% extends "./base.play_quiz.html"  %}
+
+{% block quiz_description %}
+    Match each question with their correct answers.<br/> Drag the answers tile to the boxes beside each question.
+{% endblock %}
+
+{% block quiz_body %}
+    {% if results_view is not True %}
+        <div id="mcq-ans">
+            {% for ans in answers_list %}
+                <div class="mcq-ans-item">{{ ans }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div id="mcq-canvas">
+        {% for ques in questions_list %}
+            <div class="mcq-canvas-row">
+                <div class="mcq-canvas-q text-center valign-middle">{{ ques.1.description }}</div>
+                <div class="mcq-canvas-t">
+                    {% if results_view is True %}
+                        {% include "./include.results.html" %}
+                    {% else %}
+                        <input type="hidden" name="{{ ques.0.ref.html_name }}" value="{{ ques.1.ref }}" />
+                        <input type="hidden" class="sel_answer" name="{{ ques.0.answer.html_name }}" value="" />
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

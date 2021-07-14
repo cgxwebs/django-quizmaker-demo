@@ -1,0 +1,29 @@
+{% load template_helpers %}
+
+{% if is_edit is True %}
+    <input type="hidden" id="{{ qform.ref.id_for_label }}" name="{{ qform.ref.html_name }}" value="{{ qform.ref.value }}" />
+{% endif %}
+
+<div class="q-item">
+    <label>Pictures (jpeg or png only)</label>
+    {% if is_edit is True and qform.ref.value is not None %}
+        <div class="q-thumbs">
+            {% for i in pics_by_ref|get_item:qform.ref.value %}
+               <img src="{{ MEDIA_URL }}{{ i }}" />
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="q-error">{{ qform.pics.errors }}</div>
+    {{ qform.pics }}
+</div>
+
+<div class="q-item">
+    <label>Word Context</label>
+    <div class="q-error">{{ qform.answer.errors }}</div>
+    {{ qform.answer }}
+</div>
+
+<div class="q-item">
+    <label>Clue (Optional)</label>
+    {{ qform.clue }}
+</div>

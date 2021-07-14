@@ -1,0 +1,11 @@
+{% extends "./base.html"  %}
+
+{% block body %}
+    <div class="play_list">
+        {% for quiz in object_list %}
+            <a class="play_link" href="{% url 'app:play_view' quiz_id=quiz.id %}">
+                <span class="valign-middle inner">{{ quiz.label }}</span>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

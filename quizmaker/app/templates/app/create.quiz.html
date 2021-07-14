@@ -1,0 +1,9 @@
+{% extends "./base.html"  %}
+
+{% block body %}
+    <h1>Create a new quiz</h1>
+
+    <a class="full-link" href="{% url 'app:create_multi' %}"><strong>Selection Quizzy</strong> Match answers from the given choices</a>
+    <a class="full-link" href="{% url 'app:create_picture' %}"><strong>Picture Quizzy</strong> Guess the word we're looking for</a>
+    <a class="full-link" href="{% url 'app:create_video' %}"><strong>Video Quizzy</strong> Watch the video and answer the riddle</a>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "./base.play_quiz.html"  %}
+
+{% block quiz_description %}
+    Watch the video(s) below, then answer the question.
+{% endblock %}
+
+{% block quiz_body %}
+    {% for ques in questions_list %}
+        <div class="media-wrap">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ ques.1.video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="media-caption">{{ ques.1.description }}</div>
+            <input type="hidden" name="{{ ques.0.ref.html_name }}" value="{{ ques.1.ref }}" />
+        </div>
+
+        <div class="media-canvas q-item">
+            {% if results_view is True %}
+                {% include "./include.results.html" %}
+            {% else %}
+                <label>Your Answer</label>
+                <select class="q-ctrl" name="{{ ques.0.answer.html_name }}">
+                    {% for opt in ques.1.choices_list %}
+                        <option value="{{ opt }}">{{ opt }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Quiz Maker Demo App</title>
+        <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'app/style.css' %}">
+    </head>
+    <body>
+
+        <header id="main_header">
+            <div id="branding">Uh Oh, Page Not Found</div>
+            <nav id="main_nav">
+                <a href="{% url 'app:play_index' %}"><i data-feather="play"></i> Go Home</a>
+            </nav>
+        </header>
+    </body>
+
+    <script>
+        feather.replace()
+    </script>
+</html>

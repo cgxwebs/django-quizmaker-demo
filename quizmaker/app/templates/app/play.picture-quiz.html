@@ -1,0 +1,32 @@
+{% extends "./base.play_quiz.html"  %}
+
+{% load template_helpers %}
+
+{% block quiz_description %}
+    Guess the word or phrase being depicted by the photos below
+{% endblock %}
+
+{% block quiz_body %}
+    {% for ques in questions_list %}
+        <div class="media-wrap">
+            {% for pic in ques.1.pics|reshuffle %}
+                <div class="picq-pics-item-wrap">
+                    <div class="picq-pics-item"><img src="{{ MEDIA_URL }}{{ pic }}" /></div>
+                </div>
+            {% endfor %}
+            {%  if ques.1.clue != '' %}
+                <div class="media-caption">{{ ques.1.clue }}</div>
+            {% endif %}
+            <input type="hidden" name="{{ ques.0.ref.html_name }}" value="{{ ques.1.ref }}" />
+        </div>
+
+        <div class="media-canvas q-item">
+            {% if results_view is True %}
+                {% include "./include.results.html" %}
+            {% else %}
+                <label>Your Answer</label>
+                {{ ques.0.answer }}
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

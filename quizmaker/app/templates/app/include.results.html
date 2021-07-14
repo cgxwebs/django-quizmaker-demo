@@ -1,0 +1,14 @@
+{% load template_helpers %}
+{% if resp.answers|get_item:ques.1.ref|get_item:'is_correct' is True %}
+    <div class="text-center correct_answer_wrap">
+    <i data-feather="check"></i><br/>
+    {{ resp.answers|get_item:ques.1.ref|get_item:'answer' }}
+{% else %}
+    <div class="text-center">
+    <p>
+        <i data-feather="x"></i> <br/>
+        Correct Answer: {{ ques.1.answer }}<br/>
+        You Answered: {{ resp.answers|get_item:ques.1.ref|get_item:'answer' }}
+    </p>
+{% endif %}
+</div>
